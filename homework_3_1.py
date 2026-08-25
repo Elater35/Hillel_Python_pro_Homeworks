@@ -1,21 +1,22 @@
 """ДЗ 3.1. Робота з типами даних."""
 
+from typing import Any
+
 
 def length_of_string(user_str: str) -> int:
     """1.1. Рядки (Strings):
-    функція, яка приймає рядок і повертає його довжину.
+    функція, яка приймає рядок та повертає його довжину.
     """
     return len(user_str)
 
 
-TEST_STR = "This is a test"
-str_length = length_of_string(TEST_STR)
+str_length = length_of_string("This is a test")
 print(f"\nThis is the length of our string: {str_length} characters.")
 
 
 def concatenation_two_strings(user_str_1: str, user_str_2: str) -> str:
     """1.2. Рядки (Strings): функція, яка приймає два рядки
-    і повертає об'єднаний рядок.
+    та повертає об'єднаний рядок.
     """
     return user_str_1 + user_str_2
 
@@ -27,7 +28,7 @@ print(concatenation_two_strings(STR_1, STR_2))
 
 def square_of_number(numb: int | float) -> int | float:
     """2.1. Числа (Int/float):
-    функція, яка приймає число і повертає його квадрат.
+    функція, яка приймає число та повертає його квадрат.
     """
     return numb * numb  # or numb ** 2
 
@@ -37,7 +38,7 @@ print(f"\nThis is the square of our number: {square_of_number(25)}.")
 
 def sum_of_two_numbers(num_1: int | float, num_2: int | float) -> int | float:
     """2.2. Числа (Int/float):
-    функція, яка приймає два числа і повертає їхню суму.
+    функція, яка приймає два числа та повертає їхню суму.
     """
     return num_1 + num_2
 
@@ -48,7 +49,7 @@ print(f"This is the sum of our numbers: {sum_of_two_numbers(13, 24.8)}.")
 def integer_division(numb_1: int, numb_2: int) -> tuple[int, int]:
     """2.3. Числа (Int/float):
     функція, яка приймає 2 числа типу int, виконує операцію ділення
-    та повертає цілу частину і залишок.
+    та повертає цілу частину й залишок.
     """
     return divmod(numb_1, numb_2)
     # or return numb_1 // numb_2, numb_1 % numb_2
@@ -70,7 +71,7 @@ print(f"This is the average of our list of the numbers: "
 
 
 def intersection_of_two_lists(list_1: list, list_2: list) -> list:
-    """3.2. Списки (Lists): функція, яка приймає два списки і повертає список,
+    """3.2. Списки (Lists): функція, яка приймає два списки та повертає список,
     який містить спільні елементи обох списків.
     """
     intersection_list = []
@@ -88,20 +89,23 @@ print(f"This is the intersection of our two lists: "
       f"{intersection_of_two_lists(user_list_1, user_list_2)}.\n")
 
 
-def dict_keys(my_dict):
+def dict_keys(my_dict: dict[Any, Any]) -> tuple[Any, ...]:
     """4.1. Словники (Dictionaries): функція, яка приймає словник
-    і виводить всі ключі цього словника.
+    та виводить всі ключі цього словника.
+       Функція приймає словник з будь-якими ключами та повертає кортеж
+    з будь-якими елементами. Для анотації застосовуємо метод 'Any'
+    вбудованої бібліотеки 'typing'.
     """
-    return my_dict.keys()
+    return tuple(my_dict.keys())
 
 
 user_dict = {"apple": 35, "kiwi": 9, "plum": 27, "cherry": 30}
-print(f"This is the keys of our dictionary: {list(dict_keys(user_dict))}.")
+print(f"This is the keys of our dictionary: {dict_keys(user_dict)}.")
 
 
 def merging_dictionaries(dict_1: dict, dict_2: dict) -> dict:
     """4.2. Словники (Dictionaries): функція, яка приймає два словники
-    і повертає новий словник, який є об'єднанням обох словників.
+    та повертає новий словник, який є об'єднанням обох словників.
     """
     merging_list = list(dict_1.items())
     dict_1_list = list(dict_1.items())
@@ -120,7 +124,7 @@ print(f"This is the merging of our dictionaries: "
 
 def merging_sets(set_1: set, set_2: set) -> set:
     """5.1. Множини (Sets):
-    функція, яка приймає дві множини і повертає їхнє об'єднання.
+    функція, яка приймає дві множини та повертає їхнє об'єднання.
     """
     merging_set = set_1
     for item in set_2:
@@ -177,7 +181,6 @@ def list_of_even(list_of_numbers: list[int]) -> list[int]:
 
 print(f"Only even numbers of our list of numbers: "
       f"{list_of_even([35, 88, 112, 17, 88, 187, 12, 17])}.\n")
-
 
 # 7. Лямбда-функція, яка визначає парне/непарне.
 # Функція приймає параметр (число) і,
