@@ -42,15 +42,8 @@ class Customer:
         self.cust_id = cust_id
         self.cust_name = cust_name
         self.email = email
-        self.orders = orders if isinstance(orders, list) else []  # При
-        # реєстрації користувача замовлень ще не існує = None, або при роботі
-        # з Excel-файлом отримуємо NaN при зчитуванні порожньої комірки: то
-        # self.order створить (якщо ще немає списку замовлень -
-        # ...if isinstance(orders, list) else []) список [] - порожній кошик
-        # для кожного покупця окремо, бо, якщо внести для аргументу order
-        # методу __init__ значення [] за замовчуванням (order = []), то
-        # інтерпретатор виділить одну область пам'яті для списку (order)
-        # спільну для всіх користувачів.
+        self.orders = orders if isinstance(orders, list) else []
+        # Ініціалізація історії закупівель клієнта
 
     def __str__(self):
         """Перевизначаємо метод __str__:
@@ -75,12 +68,7 @@ class Order:
     """
     def __init__(self, purchases: list[tuple[Product, int]] | None = None):
         self.purchases = purchases if purchases is not None else []
-        # При логіні користувача замовлень ще немає - None, тобто
-        # self.purchases створить список [] - порожній кошик для кожного
-        # покупця окремо, бо, якщо внести для аргументу purchases методу
-        # __init__ значення [] за замовчуванням (purchases = []), то
-        # інтерпретатор виділить одну область пам'яті для списку (order)
-        # спільну для всіх користувачів.
+        # Ініціалізація кошика покупця.
 
     def __str__(self):
         """Перевизначаємо метод __str__:
