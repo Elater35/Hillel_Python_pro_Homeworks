@@ -1,6 +1,6 @@
 """Створення класів для магазину"""
 
-import pandas as pd  # для роботи з excel
+import pandas as pd
 
 
 class Product:
@@ -23,12 +23,12 @@ class Product:
     def change_price(self, new_price: float) -> "Product":
         """Заведення нової ціни через аргумент методу."""
         self.price = new_price
-        return self  # Повертаємо сам об'єкт зі зміненим атрибутом
+        return self
 
     def change_quantity(self, new_quantity: int) -> "Product":
         """Заведення нової кількості товару через аргумент методу."""
         self.quantity = new_quantity
-        return self  # Повертаємо сам об'єкт зі зміненим атрибутом
+        return self
 
 
 class Customer:
@@ -43,7 +43,6 @@ class Customer:
         self.cust_name = cust_name
         self.email = email
         self.orders = orders if isinstance(orders, list) else []
-        # Ініціалізація історії закупівель клієнта
 
     def __str__(self):
         """Перевизначаємо метод __str__:
@@ -57,7 +56,7 @@ class Customer:
     def add_to_orders(self, order: "Order") -> "Customer":
         """Додає замовлення до історії клієнта."""
         self.orders.append(order)
-        return self  # Повертаємо сам об'єкт зі зміненим атрибутом
+        return self
 
 
 class Order:
@@ -68,7 +67,6 @@ class Order:
     """
     def __init__(self, purchases: list[tuple[Product, int]] | None = None):
         self.purchases = purchases if purchases is not None else []
-        # Ініціалізація кошика покупця.
 
     def __str__(self):
         """Перевизначаємо метод __str__:
@@ -83,12 +81,11 @@ class Order:
         """Додаємо товар до замовлення, якщо його кількість достатня."""
         if product.quantity >= quantity:
             self.purchases.append((product, quantity))
-            product.change_quantity(product.quantity - quantity)  # Зменшуємо
-            # залишок купленого товару
+            product.change_quantity(product.quantity - quantity)
         else:
             print(f"Недостатньо товару '{product.name}'. "
                   f"(Доступно {product.quantity} шт).")
-        return self  # Повертаємо сам об'єкт зі зміненим атрибутом
+        return self
 
     def calculate_total(self) -> float:
         """Рахує загальну вартість всього замовлення."""
@@ -102,21 +99,19 @@ class Shop:
 
     def __init__(self, file_path):
         self.file_path = file_path
-        self.products = {}  # словник для зберігання товарів.
-        self.customers = {}  # словник для зберігання клієнтів.
-        self.load_data()  # завантажуємо магазин з файлу Excel
+        self.products = {}
+        self.customers = {}
+        self.load_data()
 
     def load_data(self):
         """Зчитуємо дані з Excel-файлу та заповнюємо словники магазину."""
         try:
-            # Зчитуємо лист excel з товарами
             df_products = pd.read_excel(self.file_path, sheet_name="Товари")
             for _, row in df_products.iterrows():
                 prod = Product(row["ID"], row["Назва"], row["Ціна"],
                                row["Кількість"])
                 self.products[prod.prod_id] = prod
 
-            # Зчитуємо лист excel з клієнтами
             df_customers = pd.read_excel(self.file_path, sheet_name="Клієнти")
             for _, row in df_customers.iterrows():
                 cust = Customer(row["ID"], row["Ім'я"], row["e-mail"],
